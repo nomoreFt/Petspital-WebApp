@@ -1,0 +1,206 @@
+
+<%@page import="java.util.Calendar"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<link href='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
+<link href='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js'></script>
+<script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js'></script>
+<script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<style type="text/css">
+
+ .bgimg{
+  background-color: #F5DA81;
+   background-size: cover;	
+   opacity: 0.4;
+  position: fixed;
+   height: 100%;
+  width: 100%;
+  z-index: -1;
+  }
+
+    .container { 
+     font-family: fantasy, "맑은 고딕", serif;
+   
+   }
+      
+   #calendar{
+  
+      width: 700px;
+      height: 700px;
+   }
+
+    
+    #form1{
+       font-family: fantasy, "맑은 고딕", serif;
+          margin: 0 auto; 
+      width:250px;
+      
+    }
+   
+   input[type=text] { 
+            border:solid 2px #E6E6E6;
+            font-size:13pt; 
+            color:#585858; 
+            font-weight:bold; 
+            height: 40.5px;
+            text-align: center;
+            }
+   input[type=submit] { 
+         color:#585858; 
+         border:solid 2px #E6E6E6;
+         vertical-align: bottom; 
+         font: bolder;
+    }
+    
+   
+</style>
+
+<script type="text/javascript">
+   
+
+function onchangeDay(year,month,j){ 
+         
+         var res_date = year+"-"+month+"-"+j;
+         
+      $.ajax({
+         url : 'date_check',
+         type : 'post',
+         dataType : 'json',
+         data : JSON.stringify({res_date: res_date}),         
+         contentType: 'application/json', 
+           mimeType: 'application/json',
+           success : function(data) {
+              if (data == 1) {
+                 
+                 alert("예약은 하루 전까지만 가능합니다. 날짜를 다시 선택해주세요!");
+                   
+              } else if (data == 0) {
+                 document.form1.res_date.value = year+"-"+month+"-"+j;
+              }
+           }
+
+      });
+}
+
+
+$(document).ready(function(){
+   
+    /*Month Range*/
+    $( "#slider-range-max" ).slider({
+      range: "max",
+      min: 1,
+      max: 12,
+      value: 11,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+        $('#calendar').fullCalendar('changeView', 'month', ui.value);
+        $('#calendar').fullCalendar('gotoDate', "2019-"+ui.value);
+      }
+    });
+    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+    
+    
+    /*Click On Months*/
+    $(".months li").on("click", function(event) {
+     $('#calendar').fullCalendar('changeView', 'month', $(this).attr("id"));
+     $('#calendar').fullCalendar('gotoDate', "2019-"+$(this).attr("id"));
+     });
+
+   
+     $('#calendar').fullCalendar({ 
+        
+        header: {
+         left: 'title',
+         center : '',
+         right: 'prev,next today' 
+       },
+       dayClick: function(date, allDay, jsEvent, view) {
+             
+                var yy = date.format("YYYY");
+                var mm = date.format("MM");
+                var dd = date.format("DD");
+                onchangeDay(yy,mm,dd);
+             }
+       
+     });  
+     
+      $(".btn").on('click', function(event) {
+            $('#calendar').fullCalendar('changeView', $(this).attr("id"));
+          });
+     
+});
+   
+    function check(id){
+       if(!document.form1.res_date.value){
+           alert("날짜를 선택하세요.");
+           return false;
+       }
+   } 
+   
+
+   
+</script>
+</head>
+<%
+   Calendar cal = Calendar.getInstance();
+   
+%>
+<body>
+<p>&nbsp;</p><p>&nbsp;</p>
+
+ <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+			<div id="calendar" align="center"></div>
+      </div>
+  
+	     <div class="col-sm-4">
+	         
+		     <h4>월 선택</h4>
+	         <ul class="list-group months">
+	            <li class="list-group-item list-group-item-danger" id="<%=cal.get(Calendar.MONTH)%>">Last Month</li>
+	            <li class="list-group-item list-group-item-success" id="<%=cal.get(Calendar.MONTH)+1%>">This Month</li>
+	            <li class="list-group-item list-group-item-danger" id="<%=cal.get(Calendar.MONTH)+2%>">Next Month</li>
+	         </ul>
+	         <br>
+	     
+	          <h4>월 선택</h4>
+	          
+	          <label for="amount">Month:</label>
+	          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+	          
+	            <div id="slider-range-max"></div>
+	         <br>
+	         <p>&nbsp;</p><p>&nbsp;</p>
+	        <form name="form1" id="form1" action="${cp}/reserve/reserveDateOk" class="form-inline">
+	          <input type="text" name="res_date" id="res_date" readonly="readonly" placeholder="날짜를 선택하세요">
+	          &nbsp;
+	          <input type="submit" value="NEXT" onclick="return check();" class="btn btn-default">
+	         </form>
+    
+	     </div>
+   </div>
+ </div>
+
+</body>
+
+</html>

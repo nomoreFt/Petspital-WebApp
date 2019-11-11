@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.or.petspital.shopping.shopping-Mapper">
+
+	<select id="selectAll" resultType="shop">
+		SELECT
+		PRODUCT_NUM,PRODUCT_KIND,PRODUCT_NAME,PRODUCT_IMG,PRODUCT_PRICE FROM
+		PRODUCT
+	</select>
+
+
+	<select id="Detail" parameterType="map" resultType="detail">
+		SELECT * FROM
+		DETAIL WHERE D_NUM = #{D_NUM}
+	</select>
+
+	<insert id="InsertReply" parameterType="reply">
+		INSERT INTO REPLY (gdsNum,userId,repNum,repCon)
+		VALUES
+		(#{gdsNum},#{userId},REPLY_SEQ.NEXTVAL,#{repCon})
+	</insert>
+
+	<select id="ViewReply" parameterType="map" resultType="reply">
+
+		SELECT * FROM reply WHERE gdsNum = ${gdsNum}
+	</select>
+
+	<delete id="DeleteReply" parameterType="map">
+		DELETE FROM reply where repNum = ${repNum}
+	</delete>
+	
+
+
+</mapper> 
+		 

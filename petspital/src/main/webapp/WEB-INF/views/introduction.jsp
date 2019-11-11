@@ -1,0 +1,122 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병원소개</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+ .bgimg{
+  background-color: #F5DA81;
+   background-size: cover;	
+   opacity: 0.4;
+  position: fixed;
+   height: 100%;
+  width: 100%;
+  z-index: -1;
+  }
+#petspital{
+margin-left:10%;
+margin-right:10%;
+font-family: arial, helvetica, sans-serif;
+}
+table td{
+padding:10px;
+}
+#imgtable{
+margin-left:5%;
+text-align:center;
+}
+
+</style>
+</head>
+<body>
+
+<div class="bgimg"></div>
+ <%@ include file="/WEB-INF/views/header/head.jsp"%>
+ 
+  <nav class="navbar navbar-expand-md" style="margin-left: 40%;">
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+     <ul class="nav navbar-nav">
+				<li class="active"><a href="${cp}/introduction">병원소개</a></li>
+				<li><a href="${cp}/people">의료진 소개</a></li>
+				<li><a href="${cp}/map">오시는 길</a></li>
+			</ul>
+        </div>
+       
+        </nav>
+        
+<div class="container" style="width: 1920px;">
+    <div id="petspital">
+    <h1 align="center">Petspital 소개</h1>
+    <hr>
+    
+   <table>
+   <tr>
+   <td><img src="resources/image/PETSPITAL2.png"></td>
+   <td width="100px"></td>
+  <td><h3 style="color:red">"PETSPITAL은 PET과 HOSPITAL의 합성어입니다."</h3><br>
+Petspital 홈페이지를 방문해 주셔서 감사합니다. <br>
+Petspital은 병원뿐만 아니라 쇼핑몰을 운영하여 보다 편리한 병원예약과 쇼핑을 하실 수 있습니다. <br>
+최고의 상품들을 구매하고 최선의 진료를 받을 수 있도록 노력하고 있습니다. <br>
+상담은 Q&A 게시판과 전화를 통하여 가능하시며 <br>
+진료후기 게시판을 이용하여 후기를 보고 원하는 선생님을 선택하실 수 있습니다. <br>
+저희 병원에 오시는 모든 분들이 동물들과 행복하실 수 있도록 최선을 다하겠습니다. <br>
+감사합니다. <br>
+   </td>
+   </table>
+   </div>
+   <hr>
+   <br>
+ 
+<div id="imgtable" >
+ <div class="col-md-6 col-md-offset-3">
+<table class="table table-striped">
+<tr>
+<td >
+<img src="resources/image/tab1.jpg">
+</td>
+<td>
+<img src="resources/image/tab2.jpg">
+</td>
+<td >
+<img src="resources/image/tab3.jpg">
+</td>
+</tr>
+<tr class="danger">
+<td>최고의 의료진</td>
+<td >동물등록 지정 동물병원</td>
+<td>전문성높은 진료</td>
+</tr>
+<tr>
+<td >
+<img src="resources/image/tab4.jpg">
+</td>
+<td>
+<img src="resources/image/tab5.jpg">
+</td>
+<td >
+<img src="resources/image/tab6.jpg">
+</td>
+</tr>
+<tr class="danger" >
+<td>쾌적한 실내환경</td>
+<td >24시간 케어</td>
+<td>최첨단 의료장비 세팅</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>
+</body>
+</html>

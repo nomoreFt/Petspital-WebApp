@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병원소개</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+#petspital{
+padding:5%;
+margin-left:10%;
+margin-right:10%;
+font-family: arial, helvetica, sans-serif;
+}
+</style>
+</head>
+<body>
+ <%@ include file="/WEB-INF/views/header/head.jsp"%>
+ 
+  <nav class="navbar navbar-expand-md">
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="${cp}/introduction">병원소개</a></li>
+        <li><a href="${cp}/map">오시는 길</a></li>
+          
+        </ul>
+        </div>
+       
+        </nav>
+    <div id="petspital">
+    <h1 align="center">Petspital 소개</h1>
+    <hr>
+    
+   <table>
+   <tr>
+   <td><img src="resources/image/PETSPITAL2.png"></td>
+   <td width="100px"></td>
+  <td><h3 style="color:red">"PETSPITAL은 PET과 HOSPITAL의 합성어입니다."</h3><br>
+Petspital 홈페이지를 방문해 주셔서 감사합니다. <br>
+Petspital은 병원뿐만 아니라 쇼핑몰을 운영하여 보다 편리한 병원예약과 쇼핑을 하실 수 있습니다. <br>
+최고의 상품들을 구매하고 최선의 진료를 받을 수 있도록 노력하고 있습니다. <br>
+상담은 Q&A 게시판과 전화를 통하여 가능하시며 <br>
+진료후기 게시판을 이용하여 후기를 보고 원하는 선생님을 선택하실 수 있습니다. <br>
+저희 병원에 오시는 모든 분들이 동물들과 행복하실 수 있도록 최선을 다하겠습니다. <br>
+감사합니다. <br>
+
+
+   </td>
+   </table>
+   </div>
+<%@ include file="/WEB-INF/views/footer/foot.jsp"%>
+</body>
+</html>

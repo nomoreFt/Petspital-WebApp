@@ -1,0 +1,169 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<style type="text/css">
+	   
+	   body{
+	   	font-family: fantasy, "맑은 고딕", serif;
+	   }
+	     
+	      th{
+ 	            width: 80px;
+	            height: 30px;
+	            text-align: center;
+	            font-size: 15px;
+	            font: italic;
+	            color: #585858; 
+	            background-color: #FAFAFA;
+	    } 
+	     
+	   td{
+ 	            width: 40px;
+	            height: 30px;
+	            text-align: center;
+	            font-size: 15px;
+	            font: italic;
+	            color: #585858; 
+	            background-color: #FAFAFA;
+	    }
+	    
+	   input[type=button]{
+	      border:solid 2px #E6E6E6;
+	      background-color: #FBEFF2;
+	      font-size:1em;
+	      color:#585858;
+	      outline:none;
+	      display:inline;
+	      margin-left: -10px;
+	      box-sizing: border-box;
+	      font-weight:bold;
+    }
+    
+    input[type=button]:hover{
+       background-color: #FBEFF2; 
+       font-weight:bold;
+    }
+		
+	 textarea {
+        font-size: 6px;
+        text-align: center;
+        height: auto;
+      }	
+		
+	input[type=submit] { 
+   		  border:solid 2px #E6E6E6;
+	      background-color: #FBEFF2;
+	      font-size:1em;
+	      color:#585858;
+	      outline:none;
+	      display:inline;
+	      margin-left: -10px;
+	      box-sizing: border-box;
+	      font-weight:bold;
+	 }	
+
+	
+</style>
+
+<script type="text/javascript">
+	
+	function updateCheck(){
+		var result = confirm("메모를 수정하시겠습니까?");
+		
+		return result;
+	}
+	
+	function deleteCheck(){
+		
+		var result = confirm("예약을 취소하시겠습니까?");
+		
+		if(result){
+			delete_check();	    
+		}else{
+		   
+		}
+	}
+	
+	function delete_check() {
+		
+		var res_num = $("#res_num").val();
+		var res_date = $("#res_date").val();
+		
+		console.log("delete_check() 실행 "+res_num+"/"+res_date);
+		
+		$.ajax({
+			url : 'delete_check?res_num='+res_num+'&res_date='+res_date,
+			type : 'get',
+			success : function(data) {
+								
+				if (data == 1) { //예약취소불가능
+					alert("예약취소는 전일까지만 가능합니다!");
+				
+				} else{ //예약취소 성공
+					alert("취소되었습니다!");
+					location.href="reserveList";
+				}
+		
+			}, error : function(jqXHR, error) {
+					console.log("Error "+error);
+				}
+		});
+	};
+	
+</script>
+
+</head>
+<body>
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
+	<p>&nbsp;</p>
+	
+  <div align="center">
+	<form action="${cp}/reserve/memoUpdate">
+		<table border="1" style="margin-left: auto;margin-right: auto;">
+		
+				<tr>
+					<th align="center">작성자</th>
+					<td><input type="hidden" name="res_id" value="${reserveMemo.res_id}" readonly="readonly">&nbsp;${reserveMemo.res_id}</td>
+				</tr>
+				<tr>
+					<th>예약날짜</th>
+					<td><input type="hidden" name="res_date" id="res_date" value="${reserveMemo.res_date}" readonly="readonly">&nbsp;${reserveMemo.res_date}</td>
+				</tr>
+				<tr>
+					<th>예약시간</th>
+					<td><input type="hidden" name="res_time" value="${reserveMemo.res_time}" readonly="readonly">&nbsp;${reserveMemo.res_time}</td>
+				</tr>
+
+				<tr>
+					<th>메모</th>
+					<td><textarea rows="10" cols="50" name="res_memo">${reserveMemo.res_memo}</textarea></td>
+				</tr>
+
+		</table>
+			<p>&nbsp;</p>
+		<input type="hidden" name="res_num" id="res_num" value="${reserveMemo.res_num}">
+		<input type="submit" value="메모수정" class="btn btn-default" onclick="return updateCheck();">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="예약취소" onclick="deleteCheck();" class="btn btn-default">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="예약내역" onclick="location.href='${cp}/reserve/reserveList'" class="btn btn-default">
+	</form>
+	<p>&nbsp;</p>		
+</div>
+
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>	
+</body>
+</html>
+</body>
+</html>

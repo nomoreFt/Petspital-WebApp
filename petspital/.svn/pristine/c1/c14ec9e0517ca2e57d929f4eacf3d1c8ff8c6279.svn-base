@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
+
+<div class="container" style="margin-top: 75px; margin-bottom: 50px;">
+<div class= "login-box well">
+	<h1 align="center">LOGIN</h1>
+	<hr>
+
+	<form action="${cp}/member/logincheck" method="post" class="form-horizontal" role="form">
+
+		<!-- 아이디 -->
+		<div class="form-group">
+		
+			<label for="exampleInputID" class="col-sm-2 control-label col-sm-offset-2">ID</label>
+			
+			<div class="col-xs-4">
+			<input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디를 입력하세요" required>
+			</div>
+			
+		</div>
+		
+		<br>
+		
+		<!-- 비밀번호 -->
+		<div class="form-group">
+		
+			<label for="exampleInputPassword" class="col-sm-2 control-label col-sm-offset-2">Password</label>
+			
+			<!-- <span class="input-group-addon"><i class="fa fa-lock"></i></span> -->
+			
+			<div class="col-xs-4">
+			<input type="password" class="form-control" id="user_pw" name="user_pw" placeholder="비밀번호를 입력하세요" required>
+			</div>
+			
+		</div>
+		
+		<br>
+		
+		<div class="col-sm-offset-5 col-sm-2" >
+			<input type="submit" value="LOGIN" class="btn btn-default btn-login-submit btn-block m-t-md">
+		</div>
+		
+		<br>
+		<br><br>
+		
+		<div class="col-sm-offset-5" >
+			<a href="${cp}/member/whatid" class="btn btn-link">아이디</a>/<a href="${cp}/member/whatpw" class="btn btn-link">비밀번호 찾기</a> <a href="${cp}/member/join" class="btn btn-link">회원가입</a>
+		</div>
+		
+	</form>
+</div>
+</div>
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>
+</body>
+</html>

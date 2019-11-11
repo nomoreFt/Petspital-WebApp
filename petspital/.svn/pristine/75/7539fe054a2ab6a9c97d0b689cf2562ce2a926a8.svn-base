@@ -1,0 +1,181 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<style type="text/css">
+     
+	   table{
+	      width: 400px;
+	      height: 200px;
+	   }
+   
+	     
+	   td{
+	            width: 40px;
+	            height: 20px;
+	            text-align: center;
+	            font-size: 15px;
+	            font: italic;
+	            color: #585858;
+	    }
+	    
+	   input[type=button]{
+	     
+	      border:solid 2px #E6E6E6;
+	    
+	      font-size:1em;
+	      color:#585858;
+	      outline:none;
+	      display:inline;
+	      margin-left: -10px;
+	      box-sizing: border-box;
+	      
+	      
+    }
+    
+    input[type=button]:hover{
+      background-color: #FBEFF2;
+    }
+    
+    input[type=button]:disabled{
+      background-color: #FBEFF2;
+    }
+
+	 
+	input[type=text] { 
+			border:solid 2px #FFFFFF;
+			font-size:12pt; 
+			color:#585858; 
+			font-weight:bold; 
+			height: 31.5px;
+			text-align: center;
+		}
+		
+	 textarea {
+        font-size: 8px;
+        color:#585858; 
+      }	
+		
+	input[type=submit] { 
+			color:#585858; 
+			border:solid 2px #E6E6E6;
+			font: bolder;
+	 }	
+		
+
+	textarea::placeholder {
+	  color: blue;
+	  font-weight: bold;
+	}
+	
+	
+</style>
+
+<script type="text/javascript">
+
+	function resTime(id) {
+		var time = document.getElementById(id).value;
+		document.form2.res_time.value = time;
+	}
+	
+	function reserveOk(){
+		var check_submit = confirm("예약하시겠습니까?");
+		return check_submit;
+	}
+	
+$(document).ready(function() {
+	
+  	$(function(){
+		var str = ['time1','time2','time3','time4','time5','time6','time7','time8','time9'];
+		for(var i = 0; i < str.length; i++){ 
+			time_check(str[i]);
+		}
+  	});
+
+ 	
+ 	function time_check(id) {
+		
+		var time = $("#"+id).val();
+		var date = $("#date").val();
+		$.ajax({
+			url : 'time_check?time='+ time+'&date=' + date,
+			type : 'get',
+			success : function(data) {
+								
+				if (data == 1) {
+						$("#"+id).css("color", "red");
+						$("#"+id).attr("disabled", true);
+					}
+		
+				}, error : function(jqXHR, error) {
+					console.log("Error "+error);
+				}
+			});
+	
+		};
+});	
+</script>
+
+</head>
+<body>
+
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
+
+    <div align="center" >
+ 	<p>&nbsp;</p>
+
+    <h6 align="center" style="color: #585858;"><u>(빨간색으로 표시된 시간은  <strong>이미 예약되어있는 시간</strong>으로  <strong>예약불가</strong> 입니다.)</u></h6>
+
+	<form name="form2" action="${cp}/reserve/reserveTimeOk" onSubmit="return reserveOk()">
+		<p>&nbsp;</p>
+			<label style="color: #585858;">date</label>
+			<input type="text" id="date" name="res_date" size="10" value="${res_date}" readonly="readonly">
+			<label style="color: #585858;">time</label>
+			<input type="text" name="res_time" size="10" placeholder="10:00">
+		<p>&nbsp;</p>
+ 
+		<table align="center" >
+			<tr>	
+				<td><input type="button" class="btn btn-default" id="time1" value="10:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time2" value="11:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time3" value="12:00" onclick="resTime(this.id);"></td>
+			</tr>
+			<tr>
+				<td><input type="button"class="btn btn-default" id="time4" value="14:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time5" value="15:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time6" value="16:00" onclick="resTime(this.id);"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="btn btn-default" id="time7" value="17:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time8" value="18:00" onclick="resTime(this.id);"></td>
+				<td><input type="button" class="btn btn-default" id="time9" value="19:00" onclick="resTime(this.id);"></td>
+			</tr>
+		</table>
+		
+
+ 	<p>&nbsp;</p>
+ 
+ 		<textarea rows="5" cols="20" name="res_memo" style="width: 25%;"
+			placeholder="의사선생님께 전달할 메모가 있으면 작성해주세요 ~ 
+예) 반려동물 상태, 반려동물 주의사항 등" class="form-control"></textarea>
+	<p>&nbsp;</p>
+		<input type="submit" value="예약하기" class="btn btn-default btn-sm">
+	<p>&nbsp;</p>		
+	</form>
+	</div>
+	
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>	
+</body>
+</html>
+</body>
+</html> 
