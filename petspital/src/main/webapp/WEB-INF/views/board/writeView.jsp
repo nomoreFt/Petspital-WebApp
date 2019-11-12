@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
 <body>
  <% session = request.getSession();
  	String id = (String) session.getAttribute("memLoginOk");
@@ -36,4 +37,5 @@
 	</table>
 </div>
 </body>
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>
 </html>

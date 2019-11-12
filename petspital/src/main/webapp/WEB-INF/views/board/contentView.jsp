@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
 <body>
 <div class="col-md-8 col-md-offset-2">
 	<table class = "table table-hover">
@@ -45,4 +46,5 @@
 	<%@ include file="/WEB-INF/views/board/comment.jsp" %>
 	
 </body>
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>
 </html>

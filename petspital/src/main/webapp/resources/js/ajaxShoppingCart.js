@@ -1,25 +1,23 @@
 const ul = document.querySelector("#js-cart");
 
 
-
-
-
-/*function addLi(data){
+function addLi(data){
+	for(let i = 0; i < data.length; i++){
 	const li = document.createElement('li');
 	const img = document.createElement('img');
-	const imgName =data.;
-	img.src = '/petspital/resources/image/'+imgName.value;
+	img.src = '/petspital/resources/image/'+data[i];
 	li.appendChild(img);
 	ul.appendChild(li);
+	}
 }
-*/
+
 function fetchImg(){
-	fetch('http://localhost:8084/petspital/product/doC')
+	fetch('https://192.168.0.57:8443/petspital/product/doC')
 	  .then(function(response) {
 	    return response.json();
-	  }).then(function(data){
-		  console.log(data.keys(data));
-		  //addLi(data);
+	  }).then(function(data){	
+		  console.log(data);
+		  addLi(data);
 	  });
 }
 

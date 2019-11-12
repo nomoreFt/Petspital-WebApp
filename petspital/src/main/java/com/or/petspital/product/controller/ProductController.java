@@ -51,9 +51,14 @@ public class ProductController {
 		}
 	*/
 	@RequestMapping("/doC")
-	public @ResponseBody HashMap doC(HttpSession sess) {
+	@ResponseBody
+	public List<String> doC(HttpSession sess) {
+		List<String> keys  = new ArrayList<String>();
 		Map<String, ProductVO> map = (HashMap) sess.getAttribute("map");
-		return (HashMap) map;
+		for(Map.Entry<String, ProductVO> entry : map.entrySet()) {
+			keys.add(entry.getKey());
+		}
+		return keys;
 	}
 
 	@RequestMapping("/cartList")

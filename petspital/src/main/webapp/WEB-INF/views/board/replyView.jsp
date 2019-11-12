@@ -11,7 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<%@ include file="/WEB-INF/views/header/head.jsp" %>
+<% session = request.getSession();
+ 	String id = (String) session.getAttribute("memLoginOk");
+ %>
 <div class="col-md-8 col-md-offset-2">
 	<table class = "table table-hover">
 		<form action="${cp}/board/reply" method="post">
@@ -29,7 +32,7 @@
 			</tr>
 			<tr>
 				<td> 이름 </td>
-				<td> <input type="text" name="bName" value="${reply_view.bName}"></td>
+				<td> <input type="text" name="bName" value="<%=id%>"></td>
 			</tr>
 			<tr>
 				<td> 제목 </td>
@@ -46,4 +49,5 @@
 	</table>
 	</div>
 </body>
+<%@ include file="/WEB-INF/views/footer/foot.jsp" %>
 </html>

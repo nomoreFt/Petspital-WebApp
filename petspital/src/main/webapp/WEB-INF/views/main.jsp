@@ -102,7 +102,7 @@
       </ul>
     <!--날씨  -->
        <h3>오늘의 날씨</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
+      <p>강아지와의 산책을 나가보시는건 어떤가요~?</p>
       <span class = js-weather>
       </span>
       <div class="js-clock">
@@ -137,7 +137,7 @@
 		}
 
 		function popup() {
-			var url = "chat/chatbot";
+			var url = "https://www.naver.com";
 			var name = "popup test";
 			var option = "width = 500, height = 500, top = 300, left = 200, location = no"
 			window.open(url, name, option);

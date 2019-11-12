@@ -578,6 +578,7 @@ th, td {
 
 
 	<div id="leftbanner">
+		<span style="font: monospace; size: 10px">장바구니</span>
 		<ul id = "js-cart">
 		
 		</ul>
