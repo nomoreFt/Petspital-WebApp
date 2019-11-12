@@ -1,0 +1,175 @@
+
+
+--김현우qna 게시판 디비
+create table mvc_board(
+bId Number(4) PRIMARY KEY,
+bName VARCHAR2(20),
+bTitle VARCHAR2(100),
+bContent VARCHAR2(300),
+bDate DATE DEFAULT SYSDATE,
+bHit NUMBER(4) DEFAULT 0,
+bGroup NUMBER(4),
+bStep NUMBER(4),
+bIndent NUMBER(4)
+);
+
+create sequence mvc_board_seq;
+
+insert into mvc_board (bId,bName,bTitle,bContent,bHit,bGroup,bStep,bIndent)
+values (mvc_board_seq.nextval, 'abcd','is title','is content',0,mvc_board_seq.currval,0,0);
+--김현우 qnaBoard 페이징
+SELECT *
+FROM 
+(SELECT  bId,
+                    bName,
+                   bTitle,
+                    bIndent,
+                    bContent,
+                    bDate,
+                    bHit,ROW_NUMBER() OVER (order by bGroup desc, bStep asc) rnum
+FROM mvc_board)
+WHERE rnum BETWEEN 11 AND 20;
+
+--김현우 qna게시판 댓글 ajax 구현
+create table mvc_comment(
+cId NUMBER(4) PRIMARY KEY,
+userId varchar2(40),
+content varchar2(200),
+bId NUMBER(4)
+);
+
+create SEQUENCE mvc_comment_seq;
+
+insert into mvc_comment 
+values(mvc_comment_seq.nextval,'userId','content',2);
+
+UPDATE mvc_comment SET content = 'content2' where cId = 1;
+
+select * from mvc_comment;
+--민정 - 예약db
+CREATE TABLE res_db(
+    res_num NUMBER(4) PRIMARY KEY,
+    res_id VARCHAR2(20) NOT NULL,
+    res_date VARCHAR2(30) NOT NULL,
+    res_time VARCHAR2(30) NOT NULL,
+    res_memo VARCHAR2(50)
+    );
+  
+ 
+CREATE SEQUENCE res_db_seq START WITH 1 INCREMENT BY 1;
+
+--효영 멤버 DB
+create table member(
+user_num number(5) primary key not null,
+user_name varchar2(200) not null,
+user_id varchar2(300) not null,
+user_pw varchar2(300) not null,
+user_phone varchar2(200) not null,
+user_addr varchar2(200) not null
+);
+
+CREATE SEQUENCE num_SEQ INCREMENT BY 1 START WITH 1;
+
+--효영 쿠폰 DB
+create table coupon(
+coupon_num NUMBER(4) PRIMARY KEY,
+coupon_code varchar2(20),
+mem_num VARCHAR2(20)
+);
+
+CREATE SEQUENCE coupon_seq INCREMENT BY 1 START WITH 1;
+
+--명주 PRODUCT DB
+create table product(
+product_num NUMBER(4) PRIMARY KEY,
+product_kind varchar2(20),
+product_name varchar2(20),
+product_img varchar2(300),
+product_price varchar2(20)
+);
+
+INSERT INTO product  VALUES 
+(1,'feed','handmade','handmade.jpg',30000);
+INSERT INTO product  VALUES 
+(2,'beauty','tub','tub.jpg',50000);
+INSERT INTO product  VALUES 
+(3,'snack','tuna','tuna.jpg',5000);
+INSERT INTO product  VALUES 
+(4,'fashion','t-shirt','t-shirt.jpg',17000);
+INSERT INTO product  VALUES 
+(5,'feed','catfeed','catfeed1.jpg',16000);
+
+select * from product;
+
+--명주 JBOARD DBOOI
+create table jboard(
+bno number not null PRIMARY KEY,
+title varchar2(200) not null,
+content varchar2(4000),
+writer varchar2(50) not null,
+regdate date default sysdate,
+viewcnt number default 0,
+teacher varchar2(40) default '김원장'
+);
+
+CREATE SEQUENCE bno_SEQ INCREMENT BY 1 START WITH 1;
+
+INSERT INTO JBOARD(bno,title,content,writer,teacher)
+VALUES(bno_SEQ.NEXTVAL,'저희 애가 아파요3','어떻게 하죠?3','likeNIMAL2','이티쳐');
+drop table jboard;
+drop sequence bno_seq;
+
+
+--수용 shopping
+drop table product;
+
+create table product(
+product_num NUMBER(4) PRIMARY KEY,
+product_kind varchar2(20),
+product_name varchar2(20),
+product_img varchar2(300),
+product_price varchar2(20)
+);
+
+INSERT INTO product  VALUES 
+(1,'feed','handmade','handmade.jpg',30000);
+INSERT INTO product  VALUES 
+(2,'beauty','tub','tub.jpg',50000);
+INSERT INTO product  VALUES 
+(3,'snack','tuna','tuna.jpg',5000);
+INSERT INTO product  VALUES 
+(4,'fashion','t-shirt','t-shirt.jpg',17000);
+INSERT INTO product  VALUES 
+(5,'feed','catfeed','catfeed1.jpg',16000);
+
+
+create table Detail(
+PD_Num Number(4) PRIMARY KEY,
+D_Num Number(4),
+D_img VARCHAR2(30));
+
+INSERT INTO Detail  VALUES 
+(1,2,'tub1.jpg');
+INSERT INTO Detail  VALUES 
+(2,2,'tub2.jpg');
+INSERT INTO Detail  VALUES 
+(3,5,'catfeed2.jpg');
+INSERT INTO Detail  VALUES 
+(4,5,'catfeed3.jpg');
+INSERT INTO Detail  VALUES 
+(5,3,'tuna2.jpg');
+INSERT INTO Detail  VALUES 
+(6,4,'t-shirt2.jpg');
+INSERT INTO Detail  VALUES 
+(7,1,'handmade2.jpg');
+
+CREATE TABLE Reply(
+gdsNum NUMBER(4) not null,
+userId VARCHAR2(50) not null,
+repNum NUMBER(4) not null,
+repCon VARCHAR2(2000) not null,
+repDate date DEFAULT sysdate,
+PRIMARY KEY(gdsNum,repNum)
+);
+
+create sequence reply_seq;
