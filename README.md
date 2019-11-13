@@ -18,3 +18,4 @@
 
 
 ### shopping(fetch로 장바구니 미리보기)
+![장바구니](https://user-images.githubusercontent.com/37995817/68725880-24c85a00-0603-11ea-8e66-e423b3dfdf8d.gif)
